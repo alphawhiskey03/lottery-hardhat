@@ -46,7 +46,7 @@ module.exports = async ({ getNamedAccounts, deployments, network }) => {
     })
     if (!developmentChains.includes(network.name) && process.env.ETHERSCAN_API_KEY) {
         log("Verifying...")
-        verify(lotto.address, args)
+        await verify(lotto.address, args)
     }
     log("----------------")
 }
