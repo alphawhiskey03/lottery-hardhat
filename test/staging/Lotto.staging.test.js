@@ -6,7 +6,6 @@ developmentChains.includes(network.name)
     ? describe.skip
     : describe("Lotto Staging Tests", () => {
           let deployer, lotto, lottoEntranceFee
-          console.log("hi")
 
           beforeEach(async () => {
               deployer = (await getNamedAccounts()).deployer
@@ -20,9 +19,7 @@ developmentChains.includes(network.name)
                   console.log("Setting up test...")
                   const startingTimeStamp = await lotto.getLatestTimeStamp()
                   const accounts = await ethers.getSigners()
-                  console.log(startingTimeStamp)
-                  console.log("----accoutns")
-                  console.log(accounts)
+
                   await new Promise(async (resolve, reject) => {
                       lotto.once("WinnerPicked", async () => {
                           console.log("WinnerPicked event fired")
@@ -30,7 +27,7 @@ developmentChains.includes(network.name)
                               const recentWinner = await lotto.getRecentWinner()
                               const lottoState = await lotto.getLottoState()
                               const winnerEndingBalance = await accounts[0].getBalance()
-                              const endingTimeStamp = await lotto.getLastTimeStamp()
+                              const endingTimeStamp = await lotto.getLatestTimeStamp()
                               await expect(lotto.getPlayer(0)).to.be.reverted
                               assert.equal(recentWinner.toString(), accounts[0].address)
                               assert.equal(lottoState, 0)

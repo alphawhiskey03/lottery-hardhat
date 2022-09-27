@@ -44,7 +44,7 @@ contract lotto is VRFConsumerBaseV2, KeeperCompatibleInterface {
     uint16 private constant REQUEST_CONFIRMATIONS = 3;
     uint32 private immutable i_callbackGasLimit;
     uint32 private constant NUM_WORDS = 1;
-    VRFCoordinatorV2Interface immutable i_vrfCoordinator;
+    VRFCoordinatorV2Interface private immutable i_vrfCoordinator;
 
     // Lotto variable
     address private s_recentWinner;
@@ -68,14 +68,14 @@ contract lotto is VRFConsumerBaseV2, KeeperCompatibleInterface {
         uint256 entranceFee,
         uint32 callbackGasLimit
     ) VRFConsumerBaseV2(VRFCoordinatorV2) {
-        i_entranceFee = entranceFee;
         i_vrfCoordinator = VRFCoordinatorV2Interface(VRFCoordinatorV2);
         i_gasLane = gasLane;
+        i_interval = interval;
         i_subscriptionId = subscriptionId;
-        i_callbackGasLimit = callbackGasLimit;
+        i_entranceFee = entranceFee;
         s_lottoState = LottoState.OPEN; // CAN ALSO USE LottoState(0)
         s_lastTimeStamp = block.timestamp;
-        i_interval = interval;
+        i_callbackGasLimit = callbackGasLimit;
     }
 
     function enterLotto() public payable {
