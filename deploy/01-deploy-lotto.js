@@ -37,7 +37,6 @@ module.exports = async ({ getNamedAccounts, deployments, network }) => {
         entranceFee,
         callbackGasLimit,
     ]
-    console.log(args)
     const lotto = await deploy("lotto", {
         from: deployer,
         log: true,
